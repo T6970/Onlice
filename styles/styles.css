@@ -172,3 +172,34 @@
             border-top: 1px solid var(--border-color);
             padding-top: 24px;
           }
+
+
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(clamp(120px, 18vw, 240px), 1fr));
+            gap: clamp(8px, 1.4vw, 20px);
+            align-items: start;
+        }
+
+        .grid-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-color);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 420px) {
+            .responsive-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
+            }
+            .grid-item { padding: 12px; }
+        }
+

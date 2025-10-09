@@ -1,11 +1,29 @@
 <html>
-  
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Onlice</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="js/script.js" defer></script>
   </head>
-  
+
   <body>
+    <nav class="toolbar" aria-label="Main toolbar">
+      <div class="toolbar-menu" id="menu">
+      <textarea class="toolbar-item" id="filename" aria-label="Filename" rows="1" style="resize: none;">Untitled</textarea>
+        <div>
+          <button class="toolbar-item">File</button>
+          <button class="toolbar-item">Edit</button>
+          <button class="toolbar-item">View</button>
+          <button class="toolbar-item">Insert</button>
+          <button class="toolbar-item">Format</button>
+          <button class="toolbar-item">Tools</button>
+          <button class="toolbar-item">Help</button>
+        </div>
+      </div>
+    </nav>
+
     <canvas id="mainCanvas">Your browser doesn't support canvas element.</canvas>
   </body>
-  
+
 </html>
