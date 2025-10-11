@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Onlice</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="js/script.js" defer></script>
   </head>
 
@@ -11,19 +11,21 @@
     <nav class="toolbar" aria-label="Main toolbar">
       <div class="toolbar-menu" id="menu">
       <textarea class="toolbar-item" id="filename" aria-label="Filename" rows="1" style="resize: none;">Untitled</textarea>
+      <input type="file" id="jsondoc" style="display: none;">
         <div>
-          <button class="toolbar-item">File</button>
-          <button class="toolbar-item">Edit</button>
-          <button class="toolbar-item">View</button>
-          <button class="toolbar-item">Insert</button>
-          <button class="toolbar-item">Format</button>
-          <button class="toolbar-item">Tools</button>
-          <button class="toolbar-item">Help</button>
+          <button class="toolbar-item" id="file"   aria-label="File"  >File</button>
+          <button class="toolbar-item" id="edit"   aria-label="Edit"  >Edit</button>
+          <button class="toolbar-item" id="view"   aria-label="View"  >View</button>
+          <button class="toolbar-item" id="insert" aria-label="Insert">Insert</button>
+          <button class="toolbar-item" id="format" aria-label="Format">Format</button>
+          <button class="toolbar-item" id="tools"  aria-label="Tools" >Tools</button>
+          <button class="toolbar-item" id="help"   aria-label="Help"  >Help</button>
         </div>
       </div>
     </nav>
 
     <canvas id="mainCanvas">Your browser doesn't support canvas element.</canvas>
+    <div id="right-click"></div>
   </body>
 
 </html>
