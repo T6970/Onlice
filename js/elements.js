@@ -1,39 +1,41 @@
 import { styles } from './style.js';
+const element = {};
 
-export function button(label, position, size, onClick) {
+element.button = (label, position, size, onClick) => {
     const btn = document.createElement('button');
-    btn.textContent           = label;
+    btn.innerText             = label;
     btn.style.position        = 'absolute';
     btn.style.left            = position.x + 'px';
     btn.style.top             = position.y + 'px';
     btn.style.width           = size.width + 'px';
     btn.style.height          = size.height + 'px';
-    btn.style.backgroundColor = styles.button.backgroundColor;
-    btn.style.color           = styles.button.color;
-    btn.style.border          = styles.button.border;
-    btn.style.borderRadius    = styles.button.borderRadius;
-    btn.style.borderWidth     = styles.button.borderWidth;
-    btn.style.cursor          = styles.button.cursor;
-    btn.style.fontSize        = styles.button.fontSize;
+    btn.style.backgroundColor = styles.backgroundColor;
+    btn.style.color           = styles.color;
+    btn.style.border          = styles.border;
+    btn.style.borderRadius    = styles.borderRadius;
+    btn.style.borderWidth     = styles.borderWidth;
+    btn.style.cursor          = styles.cursor;
+    btn.style.fontSize        = styles.fontSize;
     btn.onclick = onClick;
     document.body.appendChild(btn);
     return btn;
 }
 
-export function dropdown(options, position, size, onSelect) {
+element.dropdown = (text, options, position, size, onSelect) => {
     const select = document.createElement('select');
+    select.style.textContent     = text;
     select.style.position        = 'absolute';
     select.style.left            = position.x + 'px';
     select.style.top             = position.y + 'px';
     select.style.width           = size.width + 'px';
     select.style.height          = size.height + 'px';
-    select.style.backgroundColor = styles.dropdown.backgroundColor;
-    select.style.color           = styles.dropdown.color;
-    select.style.border          = styles.dropdown.border;
-    select.style.borderRadius    = styles.dropdown.borderRadius;
-    select.style.borderWidth     = styles.dropdown.borderWidth;
-    select.style.cursor          = styles.dropdown.cursor;
-    select.style.fontSize        = styles.dropdown.fontSize;
+    select.style.backgroundColor = styles.backgroundColor;
+    select.style.color           = styles.color;
+    select.style.border          = styles.border;
+    select.style.borderRadius    = styles.borderRadius;
+    select.style.borderWidth     = styles.borderWidth;
+    select.style.cursor          = styles.cursor;
+    select.style.fontSize        = styles.fontSize;
 
     options.forEach(option => {
         const opt = document.createElement('option');
@@ -50,7 +52,42 @@ export function dropdown(options, position, size, onSelect) {
     return select;
 }
 
-export function text(content, position, fontSize = 16) {
+element.contextMenu = (items, position) => {
+    const menu = document.createElement('div');
+    menu.style.position        = 'absolute';
+    menu.style.left            = position.x + 'px';
+    menu.style.top             = position.y + 'px';
+    menu.style.backgroundColor = styles.backgroundColor;
+    menu.style.color           = styles.color;
+    menu.style.border          = styles.border;
+    menu.style.borderRadius    = styles.borderRadius;
+    menu.style.borderWidth     = styles.borderWidth;
+    menu.style.cursor          = styles.cursor;
+    menu.style.fontSize        = styles.fontSize;
+    menu.style.padding         = styles.padding;
+    menu.style.boxShadow       = styles.boxShadow;
+    menu.style.zIndex          = 1000;
+
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = item.label;
+        div.style.padding = '5px 10px';
+        div.style.cursor = 'pointer';
+        div.onmouseenter = () => { div.style.backgroundColor = styles.hoverBackgroundColor; };
+        div.onmouseleave = () => { div.style.backgroundColor = 'transparent'; };
+        div.onclick = () => {
+            item.action();
+            document.body.removeChild(menu);
+        };
+        menu.appendChild(div);
+    });
+
+    document.body.appendChild(menu);
+
+    return menu;
+}
+
+element.text = (content, position, fontSize = 16) => {
     const p = document.createElement('p');
     p.textContent      = content;
     p.style.position   = 'absolute';
@@ -60,9 +97,9 @@ export function text(content, position, fontSize = 16) {
     p.style.fontSize   = fontSize + 'px';
     document.body.appendChild(p);
     return p;
-}
+};
 
-export function image(src, position, size) {
+element.image = (src, position, size) => {
     const img = document.createElement('img');
     img.src = src;
     img.style.position     = 'absolute';
@@ -70,12 +107,12 @@ export function image(src, position, size) {
     img.style.top          = position.y + 'px';
     img.style.width        = size.width + 'px';
     img.style.height       = size.height + 'px';
-    img.style.borderRadius = styles.image.borderRadius;
+    img.style.borderRadius = styles.borderRadius;
     document.body.appendChild(img);
     return img;
-}
+};
 
-export function inputField(placeholder, position, size) {
+element.inputField = (placeholder, position, size) => {
     const input = document.createElement('input');
     input.type = 'text';
     input.placeholder = placeholder;
@@ -84,15 +121,15 @@ export function inputField(placeholder, position, size) {
     input.style.top = position.y + 'px';
     input.style.width = size.width + 'px';
     input.style.height = size.height + 'px';
-    input.style.border = styles.inputField.border;
-    input.style.borderRadius = styles.inputField.borderRadius;
-    input.style.padding = styles.inputField.padding;
-    input.style.fontSize = styles.inputField.fontSize;
+    input.style.border = styles.border;
+    input.style.borderRadius = styles.borderRadius;
+    input.style.padding = styles.padding;
+    input.style.fontSize = styles.fontSize;
     document.body.appendChild(input);
     return input;
-}
+};
 
-export function checkbox(label, position, onChange) {
+element.checkbox = (label, position, onChange) => {
     const container = document.createElement('div');
     container.style.position = 'absolute';
     container.style.left = position.x + 'px';
@@ -102,10 +139,10 @@ export function checkbox(label, position, onChange) {
 
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.style.width = styles.checkbox.width;
-    input.style.height = styles.checkbox.height;
-    input.style.cursor = styles.checkbox.cursor;
-    input.style.marginRight = styles.checkbox.marginRight;
+    input.style.width = styles.width;
+    input.style.height = styles.height;
+    input.style.cursor = styles.cursor;
+    input.style.marginRight = styles.marginRight;
     input.onchange = () => {
         onChange(input.checked);
     };
