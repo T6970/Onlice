@@ -1,14 +1,16 @@
 import { element } from './elements.js';
 import { mouse } from './input.js';
 
-const fileName = inputField("Untitled", { x: 10, y: 10 }, { width: 200, height: 30 });
+const fileName = element.inputField("Untitled", { x: 10, y: 10 }, { width: 200, height: 35 });
+const svg      = document.getElementById("svgContainer")
 
 element.button("File", { x: 10, y: 55 }, { width: 60, height: 30 }, () => {
-    contextMenu(
+    console.log("File menu clicked");
+    element.contextMenu(
         [
             { label: "New" , action: () => { 
-                fileName.value = "Untitled"; 
-                document.getElementById('svgContainer').innerHTML = '';
+                fileName.value = ""; 
+                svg.innerHTML  = "";
             } },
 
             { label: "Open", action: () => { 
@@ -19,7 +21,7 @@ element.button("File", { x: 10, y: 55 }, { width: 60, height: 30 }, () => {
                     const file = e.target.files[0];
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        document.getElementById('svgContainer').innerHTML = e.target.result;
+                        svg.innerHTML = e.target.result;
                         fileName.value = file.name;
                     };
                     reader.readAsText(file);
@@ -30,7 +32,7 @@ element.button("File", { x: 10, y: 55 }, { width: 60, height: 30 }, () => {
             { label: "Save", action: () => {
                 console.log("Saving file:", fileName.value);
                 const fileExport = new Blob(
-                    [document.getElementById('svgContainer').innerHTML], 
+                    [svg.innerHTML], 
                     { type: 'image/svg+xml' }
                 );
                 const a = document.createElement('a');
@@ -43,14 +45,13 @@ element.button("File", { x: 10, y: 55 }, { width: 60, height: 30 }, () => {
     );
 });
 
-button("Insert", { x: 80, y: 55 }, { width: 60, height: 30 }, () => {
-    contextMenu(
+element.button("Insert", { x: 79, y: 55 }, { width: 60, height: 30 }, () => {
+    element.contextMenu(
         [
             {label: "Shapes",action: () => {
-                contextMenu(
+                element.contextMenu(
                     [
                         { label: "Rectangle", action: () => {
-                            const svg = document.getElementById('svgContainer');
                             const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
                             rect.setAttribute("x", mouse.x);
                             rect.setAttribute("y", mouse.y);
@@ -62,7 +63,6 @@ button("Insert", { x: 80, y: 55 }, { width: 60, height: 30 }, () => {
                         } },
 
                         { label: "Circle", action: () => {
-                            const svg = document.getElementById('svgContainer');
                             const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
                             circle.setAttribute("cx", mouse.x);
                             circle.setAttribute("cy", mouse.y);
@@ -73,7 +73,6 @@ button("Insert", { x: 80, y: 55 }, { width: 60, height: 30 }, () => {
                         } },
 
                         { label: "Line", action: () => {
-                            const svg = document.getElementById('svgContainer');
                             const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
                             line.setAttribute("x1", mouse.x);
                             line.setAttribute("y1", mouse.y);
@@ -88,7 +87,6 @@ button("Insert", { x: 80, y: 55 }, { width: 60, height: 30 }, () => {
             }},
 
             { label: "Text", action: () => {
-                const svg = document.getElementById('svgContainer');
                 const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
                 text.setAttribute("x", mouse.x);
                 text.setAttribute("y", mouse.y);
@@ -100,7 +98,6 @@ button("Insert", { x: 80, y: 55 }, { width: 60, height: 30 }, () => {
             { label: "Image", action: () => {
                 const url = prompt("Enter image URL:");
                 if (url) {
-                    const svg = document.getElementById('svgContainer');
                     const img = document.createElementNS("http://www.w3.org/2000/svg", "image");
                     img.setAttribute("href", url);
                     img.setAttribute("x", mouse.x);
@@ -109,7 +106,25 @@ button("Insert", { x: 80, y: 55 }, { width: 60, height: 30 }, () => {
                     img.setAttribute("height", 100);
                     svg.appendChild(img);
                 }
+            }}
+        ],
+        { x: 80, y: 90 }
+    )
+});
+
+element.button("Edit", { x: 148, y: 55 }, { width: 60, height: 30 }, () => {
+    element.contextMenu(
+        [
+            { label: "Undo", action: () => { document.execCommand('undo'); } },
+            { label: "Redo", action: () => { document.execCommand('redo'); } },
+            { label: "Cut", action: () => { document.execCommand('cut'); } },
+            { label: "Copy", action: () => { document.execCommand('copy'); } },
+            { label: "Paste", action: () => { document.execCommand('paste'); } },
+            { label: "Delete", action: () => {
+                const selected = svg.querySelectorAll('.selected');
+                selected.forEach(elem => elem.remove());
             } }
         ],
+        { x: 150, y: 90 }
     )
 });
