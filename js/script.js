@@ -5,7 +5,6 @@ const fileName = element.inputField("Untitled", { x: 10, y: 10 }, { width: 200, 
 const svg      = document.getElementById("svgContainer")
 
 element.button("File", { x: 10, y: 55 }, { width: 60, height: 30 }, () => {
-    console.log("File menu clicked");
     element.contextMenu(
         [
             { label: "New" , action: () => { 

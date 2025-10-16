@@ -1,6 +1,8 @@
 import { styles } from './style.js';
 export const element = {};
 
+let menuList = [];
+
 const interactive = (type, position, size, onEvent) => {
     const interactiveElement = document.createElement(type);
     interactiveElement.style.position        = "absolute";
@@ -72,21 +74,37 @@ element.contextMenu = (items, position) => {
         };
         menuItem.onclick = () => {
             item.action();
-            document.body.removeChild(menu);
+            if (document.body.contains(menu)) document.body.removeChild(menu);
         };
         menu.appendChild(menuItem);
     });
+    menuList.push(menu);
 
     const removeMenu = (e) => {
-        if (!menu.contains(e.target)) {
-            document.body.removeChild(menu);
-            document.removeEventListener('click', removeMenu);
-        }
+        if (document.body.contains(e)) document.body.removeChild(e);
+        document.removeEventListener('click', removeMenu);
+        menuList = menuList.filter(m => m !== e);
     };
-    menu.addEventListener('click', removeMenu);
+
+    if (menuList.length > 1) {
+        const temp = menuList.pop();
+        for (const m of menuList) {
+            removeMenu(m);
+        };
+        menuList = [temp];
+    };
 
     return menu;
 };
+
+document.addEventListener('click', (e) => {
+    menuList.forEach(menu => {
+        if (!menu.contains(e.target)) {
+            if (document.body.contains(menu)) document.body.removeChild(menu);
+            menuList = menuList.filter(m => m !== menu);
+        }
+    });
+});
 
 element.inputField = (placeholder, position, size) => {
     const input = interactive('input', position, size);
@@ -96,4 +114,3 @@ element.inputField = (placeholder, position, size) => {
     input.style.boxSizing = 'border-box';
     return input;
 };
-
