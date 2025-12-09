@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: "Inter", sans-serif;
+  background-color: #fff;
+  color: #222;
+  --card-color: #eee;
+  --nest-card-color: #ccc;
+  --button-press-color: #bbb;
+  --highlight-color: #08f;
+  --highlight-alt-color: #f80;
+  --margin: 20px;
+  --padding: 20px;
+  --toolbar-height: 60px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-color: #333;
+    --nest-card-color: #555;
+    --button-press-color: #444;
+    --highlight-color: #f80;
+    --highlight-alt-color: #08f;
+  }
+  body {
+    background-color: #222;
+    color: #fff;
+  }
+}
+
+a {
+  color: var(--highlight-color);
+}
+
+header {
+  background-color: var(--highlight-color);
+  margin: var(--margin);
+  padding: var(--padding);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+* {
+  transition: all 0.2s ease;
+}
+
+/* Classes */
+
+.card {
+  margin: 0 auto;
+
+  background-color: var(--card-color);
+  padding: var(--padding);
+  border-style: hidden;
+  border-radius: 8px;
+}
+
+.nest {
+  background-color: var(--nest-card-color);
+}
+
+.altcard {
+  background-color: var(--highlight-alt-color);
+}
+
+.altlink {
+  color: var(--highlight-alt-color);
+}
+
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
+.header {
+  margin: 0 auto;
+  margin-top: var(--margin);
+  margin-bottom: var(--margin);
+  background-color: var(--highlight-color);
+  padding: var(--padding);
+  max-width: 700px;
+  border-radius: 8px;
+}
+
+.button {
+  min-width: 200px;
+  padding: 5px;
+}
+
+.text {
+  height: 300px;
+  font-family: monospace;
+  font-size: 16px;
+  overflow-y: auto;
+}
+
+.darker {
+  background-color: inherit;
+  filter: brightness(80%);
+}
+.darker button:hover {
+  background-color: inherit;
+  filter: brightness(90%);
+}
+
+.sidebar {
+  position: absolute;
+  margin: 0px;
+  width: 250px;
+  top: 20px;
+  bottom: 20px;
+  left: 20px
+}
+
+.flex {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.snippet-list {
+  height: calc(100% - 130px);
+}
+
+.editor {
+  position: absolute;
+  margin: 0%;
+  right: var(--margin);
+  top: 80px;
+  bottom: 20px;
+  left: var(--margin);
+  font-family: monospace;
+}
+
+.insert {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: absolute;
+  right: var(--margin);
+  left: var(--margin);
+  top: var(--margin);
+  height: var(--toolbar-height);
+  padding: 0px;
+}
+
+.editor {
+  position: absolute;
+  bottom: var(--margin);
+  top: calc(var(--toolbar-height) + 20px + var(--margin));
+  width: calc(100vw - 4 * var(--margin));
+  font-family: monospace;
+  font-size: 16px;
+}
+
+/* Pseudoclasses */
+
+button:hover {
+  background-color: var(--button-press-color);
+}
+
+button:active {
+  background-color: var(--highlight-color);
+}
